@@ -8,11 +8,12 @@ main(List<String> args) {
       appBar: AppBar(
         title: Text("My App"),
       ),
-      body: getListView(),
+      body: getLongListView(),
     ),
   ));
 }
 
+// meant for a short list
 Widget getListView() {
   var listview = ListView(
     children: <Widget>[
@@ -38,4 +39,23 @@ Widget getListView() {
     ],
   );
   return listview;
+}
+
+// generate long list of elements
+List<String> getListElement() {
+  return List<String>.generate(1000, (counter) => "counter $counter");
+}
+
+// generate long list view
+Widget getLongListView() {
+  var listItems = getListElement();
+
+  var listView = ListView.builder(
+    itemBuilder: (context, index) {
+      return ListTile(
+        title: Text(listItems[index]),
+      );
+    },
+  );
+  return listView;
 }
