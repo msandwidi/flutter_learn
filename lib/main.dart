@@ -9,8 +9,29 @@ main(List<String> args) {
         title: Text("My App"),
       ),
       body: getLongListView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          debugPrint("fab clicked");
+        },
+        child: Icon(Icons.add),
+        tooltip: "Add One More Item",
+      ),
     ),
   ));
+}
+
+// show snackbar
+Widget showSnackBar(BuildContext context, String item) {
+  var snackbar = SnackBar(
+    content: Text("You added $item"),
+    action: SnackBarAction(
+      label: "UNDO",
+      onPressed: () {
+        debugPrint("Action pressed");
+      },
+    ),
+  );
+  Scaffold.of(context).showSnackBar(snackbar);
 }
 
 // meant for a short list
@@ -54,6 +75,7 @@ Widget getLongListView() {
     itemBuilder: (context, index) {
       return ListTile(
         title: Text(listItems[index]),
+        onTap: () => showSnackBar(context, listItems[index]),
       );
     },
   );
